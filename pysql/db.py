@@ -7,7 +7,7 @@ from pysql.connection import Connection
 	
 class DB(Connection):
     '''
-    The DB oject creates a connection to the MySQL server database, verifies db 
+    The DB oject creates a connection to the SQL server database, verifies db 
     connection based on db name specified, and executes prepared statemetns. 
     
     Acts as a single interface for I/O to the DB server
