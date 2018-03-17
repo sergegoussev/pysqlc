@@ -49,8 +49,7 @@ class Connection:
                 	table_schema as `database`
                 FROM information_schema.tables 
                 
-                	WHERE engine='InnoDB'
-                	AND table_schema NOT IN (
+                	WHERE table_schema NOT IN (
                 		'information_schema',
                 		'sys',
                 		'mysql'
