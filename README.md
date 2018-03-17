@@ -53,6 +53,7 @@ Successfully connected to testdb
 ```
 
 <li>if password included in json:</li>
+
 ```python
 from pysql import DB
 db = DB('testdb')
