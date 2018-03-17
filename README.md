@@ -20,7 +20,7 @@
 <ol>
    <li>Setup and connection:
       <br>
-      <p>After installing the <b>pysql</b> package, you must create an environmental variable titled 'SQL_LOGIN' that will store the login information in the local computer. This works the same way as google cloud environmental variable, which points to a json on your computer. Create a raw .json file and paste the following inside (inserting your own information):</p>
+      <p>After installing the <b>pysql</b> package, you must create an environmental variable titled 'SQL_LOGIN' that will store the login information in the local computer. This works the same way as <a href="https://cloud.google.com/deployment-manager/docs/configuration/templates/use-environment-variables">google cloud environmental variables</a>, which points to a json on your computer. Create a raw .json file and paste the following inside (inserting your own information):</p>
    
     {
     	"dbtype":"MySQL", 
