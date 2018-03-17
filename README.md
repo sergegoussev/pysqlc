@@ -20,7 +20,7 @@
 <ol>
    <li>Setup and connection:
       <br>
-      <p>After installing the <b>pysql</b> package, you must create an environmental variable titled 'SQL_LOGIN' that will store the login information in the local computer. This works the same way as <a href="https://cloud.google.com/deployment-manager/docs/configuration/templates/use-environment-variables">google cloud environmental variables</a>, which points to a json on your computer. Create a raw .json file and paste the below inside (inserting your own information). Then create a 'SQL_LOGIN' local variable and point it to the .json file you created:</p>
+      <p>After installing the <b>pysql</b> package, you must create an environmental variable titled 'SQL_LOGIN' that will store the login information in the local computer. This works the same way as <a href="https://cloud.google.com/deployment-manager/docs/configuration/templates/use-environment-variables">google cloud environmental variables</a>, which points to a json on your computer. Create a raw .json file and paste the below inside (inserting your own information). Then create a 'SQL_LOGIN' local variable and point it to the .json file you created.</p>
    
     {
     	"dbtype":"MySQL", 
@@ -31,8 +31,8 @@
     }
 <br>
    <ul>
-      <li>NOTE 1: specify either "MySQL" or "SQL Server"</li>
-   <li>NOTE 2: "password" can be ommited, if it is, the <b>pysql</b> will ask for the password every time the connection is made (or alternatively can be passed into the DB object upon initiation):</li>
+      <li>NOTE 1: specify either "MySQL" or "SQL Server" under dbtype;</li>
+      <li>NOTE 2: "password" section can be ommited. If it is not included, the <b>pysql</b> will ask for the password every time the connection is made (or alternatively look for it to be passed into the DB object upon initiation):</li>
       <ul>
          <li>if password ommited from local variable json and <b>not</b> specified in code:</li>
 
