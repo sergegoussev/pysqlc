@@ -32,7 +32,7 @@
 <br>
    <ul>
       <li>NOTE 1: specify either "MySQL" or "SQL Server"</li>
-      <li>NOTE 2: "password" can be ommited, if it is, the *pysql* will ask for the password every time the connection is made (or alternatively can be passed into the DB object upon initiation):</li>
+   <li>NOTE 2: "password" can be ommited, if it is, the <b>pysql</b> will ask for the password every time the connection is made (or alternatively can be passed into the DB object upon initiation):</li>
       <ul>
          <li>if password ommited from local variable json and <b>not</b> specified in code:</li>
 
