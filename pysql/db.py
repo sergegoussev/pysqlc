@@ -96,6 +96,9 @@ class DB:
         If a CREATE query (nothing returned):
             - need q_type = 'CREATE'
             - values = None (or skip)
+        If DELETE query (again, nothing returned):
+            - need q_type = 'DELETE'
+            - values = None (or skip)
         If executemany == True -- uses the 'executemany' cursor function
 
         The error handling is done so as to re-create the cursor in case it 

@@ -16,7 +16,7 @@ setup(name='pysql',
         'Topic :: MySQL',
       ],
       url='https://www.rudatalab.com',
-      author='@SergeGoussev',
+      author='SergeGoussev',
       license='MIT',
       packages=['pysql'],
       install_requires=[

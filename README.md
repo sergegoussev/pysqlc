@@ -82,12 +82,11 @@ db.query(query, values, q_type='INSERT') #q_type='UPDATE' if updating
 ```
 
 </li>
-<li>Inserting large list of data:
-   you do not need to specify that you are inserting many records, <b>pysql</b> will automatically recognize it and and <i>cursor.executemany()</i> will be used:
+<li>Inserting large list of data: specify 'executemany'=True in the query command and <b>pysql</b> will utilize the <i>cursor.executemany()</i> function:
    
 ```python
 query = "INSERT IGNORE INTO table (userid, username) VALUES (%s, %s);"
 values = [(123,'john smith'),(456,'elon musk'),(789,'bill gates')]
-db.query(query, values, q_type='INSERT')
+db.query(query, values, q_type='INSERT', executemany=True)
 ```
 </li>
