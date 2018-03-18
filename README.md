@@ -62,7 +62,11 @@ Successfully connected to testdb
    </ul>
    </ul>
 </li>
+<<<<<<< HEAD
         
+=======
+    	
+>>>>>>> 30eaed3f69d6b74615a91160034950f5820c3eaa
 <li>Extracting data:
 Extraction is super easy once connected to a database:
    
@@ -91,4 +95,10 @@ values = [(123,'john smith'),(456,'elon musk'),(789,'bill gates')]
 db.query(query, values, q_type='INSERT')
 ```
 </li>
+<<<<<<< HEAD
 </ol>
+=======
+</ol>
+    
+    	
+>>>>>>> 30eaed3f69d6b74615a91160034950f5820c3eaa
