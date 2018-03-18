@@ -15,3 +15,9 @@ class ConnectError(pysqlError):
     Connection error handler
     """
     pass
+
+class QueryError(pysqlError):
+    """
+    Query error handler
+    """
+    pass
