@@ -12,7 +12,6 @@ setup(name='pysql',
       ],
       url='https://www.rudatalab.com',
       author='@SergeGoussev',
-      author_email='rudatalab_info@gmail.com',
       license='MIT',
       packages=['pysql'],
       install_requires=[
