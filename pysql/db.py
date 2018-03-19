@@ -2,6 +2,7 @@
 """
 pysql.db
 """
+from __future__ import print_function
 from pysql.error import ConnectError, QueryError
 import os, json, MySQLdb, pyodbc
 	

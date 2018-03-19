@@ -1,6 +1,13 @@
 <h1>pysql</h1>
 
+<p>
 <b>pysql</b> is an abstraction library for SQL databases. Existing packages, such as <a href="https://pypi.python.org/pypi/mysqlclient">mysqlclient</a> or <a href="https://github.com/mkleehammer/pyodbc">pyodbc</a> require connections and cursors to be made in every script, each time requiring the specification of login information, the host, etc. They also are ambigious -- leaving the choice of using prepared statements or not up to you. <b>pysql</b> simplifies this and allows you to setup your connection once, and then utilize it whenever needed. It also enables easy use of prepared statements. 
+</p>
+
+<p>
+Compatible with Python 2.7, 3.x (tested with 3.5 and 3.6)
+</p>
+
 
 <b>pysql</b> is similar (but simpler) than other libraries such as <a href="https://github.com/whiteclover/dbpy">dbpy</a>, and supports:
 <ul>
@@ -15,6 +22,10 @@
 <p>To install, download the repository and install using pip (locally):</p>
 
     >>> pip install .
+
+<p>or alternatively via git from here directly:</p>
+
+    >>> pip install git+https://github.com/sergegoussev/pysql.git
 
 <h4>Quickstart</h4>
 <ol>
