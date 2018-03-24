@@ -4,7 +4,7 @@ pysql.db
 """
 from __future__ import print_function
 from pysql.error import ConnectError, QueryError
-import os, json, MySQLdb, pyodbc
+import os, json, MySQLdb, pypyodbc
 	
 class DB:
     '''
@@ -75,11 +75,11 @@ class DB:
                 raise ConnectError("Cannot connect, check login information")
         elif self.dbtype == 'SQL Server':
             try:
-                self.conn = pyodbc.connect(host=self.login['host'],
-                                           user=self.login['username'],
-                                           password=self.password,
-                                           db=self.db_name,
-                                           charset=self.login['charset'])
+                self.conn = pypyodbc.connect(driver='{SQL Server}',
+                                             server=self.login['host'],
+                                             database=self.db_name,
+                                             uid=self.login['username'],
+                                             pwd=self.password)
             except Exception:
                 raise ConnectError("Cannot connect, check login information")
         else:
