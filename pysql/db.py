@@ -100,6 +100,7 @@ class DB:
         If DELETE query (again, nothing returned):
             - need q_type = 'DELETE'
             - values = None (or skip)
+        If UPDATE query (as above)
         If executemany == True -- uses the 'executemany' cursor function
 
         The error handling is done so as to re-create the cursor in case it 
@@ -123,7 +124,7 @@ class DB:
                 c.execute(sql_query, values)
 
         #return function based on input type
-        if q_type == 'INSERT' or q_type == 'REPLACE' or q_type == 'DELETE':
+        if q_type == 'INSERT' or q_type == 'REPLACE' or q_type == 'DELETE' or q_type == 'UPDATE':
             if not 'select' in sql_query.lower():    
                 print('{} made'.format(q_type.title()))
                 self.conn.commit()
