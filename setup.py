@@ -18,6 +18,6 @@ setup(name='pysql',
       packages=['pysql'],
       install_requires=[
               'mysqlclient',
-              'pyodbc',
+              'pypyodbc',
               'future'],
       zip_safe=False)
