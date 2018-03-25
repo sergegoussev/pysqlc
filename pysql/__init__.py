@@ -2,7 +2,7 @@
 """
 pysql.__init__
 """
-__version__ = '1.0'
+__version__ = '0.1'
 __author__ = '@SergeGoussev'
 __licence__ = 'MIT'
 

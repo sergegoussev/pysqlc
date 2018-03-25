@@ -1,8 +1,8 @@
 from setuptools import setup
 
 setup(name='pysql',
-      version='1.0',
-      description='Connection library to databases',
+      version='0.1',
+      description='Simple python abstraction library for SQL databases',
       long_description=open('README.md').read(),
       classifiers=[
         'License :: MIT License',
