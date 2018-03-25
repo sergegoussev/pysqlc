@@ -2,3 +2,4 @@
 .spyderproject
 .ini
 *.ini
+*.pyc
