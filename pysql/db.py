@@ -124,16 +124,15 @@ class DB:
                 c.execute(sql_query, values)
 
         #return function based on input type
+        mod_qs = ('update','insert','replace','delete')
         if q_type == 'INSERT' or q_type == 'REPLACE' or q_type == 'DELETE' or q_type == 'UPDATE':
-            if not 'select' in sql_query.lower():    
+            if any(q in sql_query.lower() for q in mod_qs):    
                 print('{} made'.format(q_type.title()))
                 self.conn.commit()
             else:
-                raise QueryError('improper q_type used, SELECT detected in your query')
+                raise QueryError('improper q_type used, you are not attempting to make changes but using an alter query type')
         elif q_type is 'SELECT':
-            if not ('insert' in sql_query.lower() \
-                    or 'replace' in sql_query.lower() \
-                    or 'delete' in sql_query.lower()):
+            if not any(q in sql_query.lower() for q in mod_qs):
                 return c.fetchall()
             else:
                 raise QueryError('improper q_type, please do not use SELECT when modifying data')
