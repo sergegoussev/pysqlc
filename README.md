@@ -25,7 +25,7 @@ Compatible with Python 2.7, 3.x (tested with 2.7, 3.5 and 3.6)
 
 <p>or alternatively via git from here directly:</p>
 
-    >>> pip install git+https://github.com/sergegoussev/pysql-con.git
+    >>> pip install git+https://github.com/sergegoussev/pysqlc.git
 
 <h4>Quickstart</h4>
 <ol>
@@ -51,7 +51,7 @@ Compatible with Python 2.7, 3.x (tested with 2.7, 3.5 and 3.6)
 <br>
    <ul>
       <li>NOTE 1: specify either "MySQL" or "SQL Server" under dbtype;</li>
-      <li>NOTE 2: "password" section can be ommited. If it is not included, the <b>pysql</b> will ask for the password every time the connection is made (or alternatively look for it to be passed into the DB object upon initiation):</li>
+      <li>NOTE 2: "password" section can be ommited. If it is not included, the <b>pysqlc</b> will ask for the password every time the connection is made (or alternatively look for it to be passed into the DB object upon initiation):</li>
       <ul>
          <li>if password ommited from local variable json and <b>not</b> specified in code:</li>
 
@@ -101,7 +101,7 @@ db.query(query, values, q_type='INSERT') #q_type='UPDATE' if updating
 ```
 
 </li>
-<li>Inserting large list of data: specify 'executemany'=True in the query command and <b>pysql</b> will utilize the <i>cursor.executemany()</i> function:
+<li>Inserting large list of data: specify 'executemany'=True in the query command and <b>pysqlc</b> will utilize the <i>cursor.executemany()</i> function:
    
 ```python
 query = "INSERT IGNORE INTO table (userid, username) VALUES (%s, %s);"
