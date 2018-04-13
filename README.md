@@ -32,8 +32,7 @@ Compatible with Python 2.7, 3.x (tested with 2.7, 3.5 and 3.6)
    <li>Setup and connection:
       <br>
       <p>After installing the <b>pysqlc</b> package, you have an option of how you would like the library to authenticate. The recommended approach is to set up an environmental variable, however you could also authenticate for each connection.</p>
-        <br>
-        <p>To follow the environmental variable approach (works the same way as <a href="https://cloud.google.com/deployment-manager/docs/configuration/templates/use-environment-variables">google cloud environmental variables</a>, which points to a json on your computer), create a 'SQL_LOGIN' variable and point it to a .json file somewhere on your computer. You must follow the below structure with the name of the environment you are connecting to, and the various connection requirements.</p>
+    <p>To follow the environmental variable approach (works the same way as <a href="https://cloud.google.com/deployment-manager/docs/configuration/templates/use-environment-variables">google cloud environmental variables</a>, which points to a json on your computer), create a 'SQL_LOGIN' variable and point it to a .json file somewhere on your computer. You must follow the below structure with the name of the environment you are connecting to, and the various connection requirements.</p>
    
     {
     	"main":{
@@ -46,8 +45,8 @@ Compatible with Python 2.7, 3.x (tested with 2.7, 3.5 and 3.6)
     }
      
         
-        <p>The above approach makes it possible for you to specify several environments, just add as needed. Its recommended to set the default environment you will use as "main". If "main" is specified in the json, you do not need to specify the environment every time when connecting. 
-        </p>
+    <p>The above approach makes it possible for you to specify several environments, just add as needed. Its recommended to set the default environment you will use as "main". If "main" is specified in the json, you do not need to specify the environment every time when connecting. 
+    </p>
      
 <br>
    <ul>
