@@ -3,7 +3,7 @@
 pysql.db
 """
 from __future__ import print_function
-from pysql.error import ConnectError, QueryError
+from pysqlc.error import ConnectError, QueryError
 import os, json, MySQLdb, pypyodbc
 	
 class DB:
@@ -13,7 +13,21 @@ class DB:
     
     Acts as a single interface for I/O to the DB server
     '''
-    def __init__(self, db_name="", password=None):
+    def __init__(self, 
+                 db_name="",
+                 env_name="main",
+                 username=None,
+                 password=None,
+                 host=None,
+                 charset=None):
+        '''
+        Enter the required information to connect to the SQL server. If environmental
+        variable is set, you can skip specifying everything 
+        '''
+        self.host = host
+        self.charset = charset
+        self.env_name = env_name
+        self.username = username
         self.pass_entered = password
         self.db_name = db_name
         self.__get_login_info__()
@@ -24,10 +38,14 @@ class DB:
             except:
                 self.db_name = ""
                 self.connect()
-                print('No such database exists, the following are availible:')
-                for each in self.__check_dbs__():
-                    print(" - {}".format(each[0]))
-                print("Please retry with one of the above")
+                try:
+                    avail_dbs = self.__check_dbs__()
+                    print('No such database exists, the following are availible:')
+                    for each in avail_dbs:
+                        print(" - {}".format(each[0]))
+                    print("Please retry with one of the above")
+                except:
+                    print("No such database exists, check your spelling and try again")
         else:
             print("No DB selected, please select one of the following databases and try again")
             self.connect()
@@ -35,9 +53,26 @@ class DB:
                 print(" - {}".format(each[0]))
     
     def __get_login_info__(self):
-        j = open(os.environ['SQL_LOGIN']).read()
-        self.login = json.loads(j)
-        self.dbtype = self.login['dbtype']
+        try:
+            j = open(os.environ['SQL_LOGIN']).read()
+            parsed = json.loads(j)
+            if self.env_name in parsed:
+                self.login = parsed[self.env_name]
+            else:
+                raise ConnectError("Improper environment selected, please try again")
+            self.dbtype = self.login['dbtype']
+            
+        except:
+            if (self.host is not None \
+                and self.charset is not None \
+                and self.username is not None):
+                self.login = {
+                        "host":self.host,
+                        "charset":self.charset,
+                        "username":self.username
+                        }
+            else:
+                raise ConnectError("No environmental variable detected and server connection information not specified during initialization of the DB object. Please try again")
         if 'password' in self.login:
             self.password = self.login['password']
         elif self.pass_entered is not None:
@@ -51,8 +86,7 @@ class DB:
                 	table_schema as `database`
                 FROM information_schema.tables 
                 
-                	WHERE engine='InnoDB'
-                	AND table_schema NOT IN (
+                	WHERE table_schema NOT IN (
                 		'information_schema',
                 		'sys',
                 		'mysql'
@@ -138,4 +172,4 @@ class DB:
                 raise QueryError('improper q_type, please do not use SELECT when modifying data')
         
 if __name__ == '__main__':
-    pass
+    db = DB('ont_politics')

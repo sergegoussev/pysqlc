@@ -1,7 +1,7 @@
-<h1>pysql</h1>
+<h1>pysqlc</h1>
 
 <p>
-<b>pysql</b> is an abstraction library for SQL databases. Existing packages, such as <a href="https://pypi.python.org/pypi/mysqlclient">mysqlclient</a> or <a href="https://github.com/mkleehammer/pyodbc">pyodbc</a> require connections and cursors to be made in every script, each time requiring the specification of login information, the host, etc. They also are ambigious -- leaving the choice of using prepared statements or not up to you. <b>pysql</b> simplifies this and allows you to setup your connection once, and then utilize it whenever needed. It also enables easy use of prepared statements. 
+<b>pysqlc</b> is an abstraction library for SQL databases (it stands for Python SQL connection). Existing packages, such as <a href="https://pypi.python.org/pypi/mysqlclient">mysqlclient</a> or <a href="https://github.com/mkleehammer/pyodbc">pyodbc</a> require connections and cursors to be made in every script, each time requiring the specification of login information, the host/server, etc. They are also ambigious—leaving the choice of using prepared statements or not up to you. <b>pysqlc</b> simplifies this and allows you to setup your connection once, and then utilize it whenever needed. It also enables easy use of prepared statements. It also faciliates working with multiple databases and makes authentication relatively simple.
 </p>
 
 <p>
@@ -9,7 +9,7 @@ Compatible with Python 2.7, 3.x (tested with 2.7, 3.5 and 3.6)
 </p>
 
 
-<b>pysql</b> is similar (but simpler) than other libraries such as <a href="https://github.com/whiteclover/dbpy">dbpy</a>, and supports:
+<b>pysqlc</b> is similar (but simpler) than other libraries such as <a href="https://github.com/whiteclover/dbpy">dbpy</a>, and supports:
 <ul>
    <li>MySQL;</li>
    <li>SQL Server</li>
@@ -25,21 +25,30 @@ Compatible with Python 2.7, 3.x (tested with 2.7, 3.5 and 3.6)
 
 <p>or alternatively via git from here directly:</p>
 
-    >>> pip install git+https://github.com/sergegoussev/pysql.git
+    >>> pip install git+https://github.com/sergegoussev/pysql-con.git
 
 <h4>Quickstart</h4>
 <ol>
    <li>Setup and connection:
       <br>
-      <p>After installing the <b>pysql</b> package, you must create an environmental variable titled 'SQL_LOGIN' that will store the login information in the local computer. This works the same way as <a href="https://cloud.google.com/deployment-manager/docs/configuration/templates/use-environment-variables">google cloud environmental variables</a>, which points to a json on your computer. Create a raw .json file and paste the below inside (inserting your own information). Then create a 'SQL_LOGIN' local variable and point it to the .json file you created.</p>
+      <p>After installing the <b>pysqlc</b> package, you have an option of how you would like the library to authenticate. The recommended approach is to set up an environmental variable, however you could also authenticate for each connection.</p>
+        <br>
+        <p>To follow the environmental variable approach (works the same way as <a href="https://cloud.google.com/deployment-manager/docs/configuration/templates/use-environment-variables">google cloud environmental variables</a>, which points to a json on your computer), create a 'SQL_LOGIN' variable and point it to a .json file somewhere on your computer. You must follow the below structure with the name of the environment you are connecting to, and the various connection requirements.</p>
    
     {
-        "dbtype":"MySQL", 
-        "host":"localhost",
-        "charset":"utf8mb4",
-        "username":"user",
-        "password":"pass"
+    	"main":{
+    		"dbtype":"MySQL",
+    		"host":"localhost",
+    		"charset":"utf8mb4",
+    		"username":"uid",
+    		"password":"psw"
+    	}
     }
+     
+        
+        <p>The above approach makes it possible for you to specify several environments, just add as needed. Its recommended to set the default environment you will use as "main". If "main" is specified in the json, you do not need to specify the environment every time when connecting. 
+        </p>
+     
 <br>
    <ul>
       <li>NOTE 1: specify either "MySQL" or "SQL Server" under dbtype;</li>
@@ -48,7 +57,7 @@ Compatible with Python 2.7, 3.x (tested with 2.7, 3.5 and 3.6)
          <li>if password ommited from local variable json and <b>not</b> specified in code:</li>
 
 ```python
-from pysql import DB
+from pysqlc import DB
 db = DB('testdb')
 Enter password to login to the database server: #prompt
 'pass'
@@ -58,7 +67,7 @@ Successfully connected to testdb
 <li>if password ommited from local variable json, but specified in code:</li>
 
 ```python
-from pysql import DB
+from pysqlc import DB
 db = DB('testdb', password='pass')
 Successfully connected to testdb
 ```
@@ -66,7 +75,7 @@ Successfully connected to testdb
 <li>if password included in json:</li>
 
 ```python
-from pysql import DB
+from pysqlc import DB
 db = DB('testdb')
 Successfully connected to testdb
 ```

@@ -1,7 +1,7 @@
 from setuptools import setup
 
-setup(name='pysql',
-      version='0.1',
+setup(name='pysqlc',
+      version='0.1.1',
       description='Simple python abstraction library for SQL databases',
       long_description=open('README.md').read(),
       classifiers=[
@@ -15,7 +15,7 @@ setup(name='pysql',
       url='https://www.rudatalab.com',
       author='SergeGoussev',
       license='MIT',
-      packages=['pysql'],
+      packages=['pysqlc'],
       install_requires=[
               'mysqlclient',
               'pypyodbc',
