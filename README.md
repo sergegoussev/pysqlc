@@ -45,8 +45,8 @@ Compatible with Python 2.7, 3.x (tested with 2.7, 3.5 and 3.6)
     }
      
         
-    <p>The above approach makes it possible for you to specify several environments, just add as needed. Its recommended to set the default environment you will use as "main". If "main" is specified in the json, you do not need to specify the environment every time when connecting. 
-    </p>
+
+<p>The above approach makes it possible for you to specify several environments, just add as needed. Its recommended to set the default environment you will use as "main". If "main" is specified in the json, you do not need to specify the environment every time when connecting. </p>
      
 <br>
    <ul>
