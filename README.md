@@ -96,7 +96,7 @@ Also very easy, based on prepared statements:
 
 ```python
 query = "INSERT IGNORE INTO table (userid, username) VALUES (%s, %s);"
-values = (123,'john smith')
+values = [123,'john smith']
 db.query(query, values, q_type='INSERT') #q_type='UPDATE' if updating
 ```
 
@@ -109,3 +109,18 @@ values = [(123,'john smith'),(456,'elon musk'),(789,'bill gates')]
 db.query(query, values, q_type='INSERT', executemany=True)
 ```
 </li>
+
+NOTE: values should always be passed as a list (even if there is only one value):
+
+```python
+q1 = "REPLACE INTO table (name) VALUES (%s);"
+db.query(query=q1, values=['John Smith'], q_type='REPLACE')
+
+#or multiple data values:
+q2 = """
+    UPDATE table
+    SET number=%s
+    WHERE userid='%s';
+    """
+db.query(query=q2, values=[123, 'john-123'], q_type="UPDATE")
+```

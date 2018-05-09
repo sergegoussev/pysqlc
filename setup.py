@@ -5,6 +5,7 @@ setup(name='pysqlc',
       description='Simple python abstraction library for SQL databases',
       long_description=open('README.md').read(),
       classifiers=[
+        'Development Status :: Production',
         'License :: MIT License',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.x',
