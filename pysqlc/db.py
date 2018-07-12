@@ -4,7 +4,7 @@ pysql.db
 """
 from __future__ import print_function
 from pysqlc.error import ConnectError, QueryError
-import os, json, MySQLdb, pypyodbc
+import os, json, MySQLdb, pypyodbc, getpass
 	
 class DB:
     '''
@@ -78,7 +78,7 @@ class DB:
         elif self.pass_entered is not None:
             self.password = self.pass_entered
         else:
-            self.password = input("Enter password to login to the database server: ")
+            self.password = getpass.getpass("Enter password to login to the database server: ")
             
     def __check_dbs__(self):
         q = """
@@ -172,4 +172,4 @@ class DB:
                 raise QueryError('improper q_type, please do not use SELECT when modifying data')
         
 if __name__ == '__main__':
-    db = DB('ont_politics')
+    db = DB('temp')

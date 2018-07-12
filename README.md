@@ -5,7 +5,7 @@
 </p>
 
 <p>
-Compatible with Python 2.7, 3.x (tested with 2.7, 3.5 and 3.6)
+Compatible with Python 2.7, 3.5, 3.6
 </p>
 
 

@@ -1,14 +1,13 @@
 from setuptools import setup
 
 setup(name='pysqlc',
-      version='0.1.1',
+      version='0.1.2',
       description='Simple python abstraction library for SQL databases',
       long_description=open('README.md').read(),
       classifiers=[
         'Development Status :: Production',
         'License :: MIT License',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.x',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Topic :: MySQL',
