@@ -1,126 +1,44 @@
-<h1>pysqlc</h1>
+HOME | [Documentation](docs/README.md)
 
-<p>
-<b>pysqlc</b> is an abstraction library for SQL databases (it stands for Python SQL connection). Existing packages, such as <a href="https://pypi.python.org/pypi/mysqlclient">mysqlclient</a> or <a href="https://github.com/mkleehammer/pyodbc">pyodbc</a> require connections and cursors to be made in every script, each time requiring the specification of login information, the host/server, etc. They are also ambigious—leaving the choice of using prepared statements or not up to you. <b>pysqlc</b> simplifies this and allows you to setup your connection once, and then utilize it whenever needed. It also enables easy use of prepared statements. It also faciliates working with multiple databases and makes authentication relatively simple.
-</p>
+# pysqlc
 
-<p>
+**pysqlc** is an abstraction library for SQL databases (it stands for Python SQL connection). Existing packages, such as [mysqlclient](https://pypi.python.org/pypi/mysqlclient) or [pyodbc](https://github.com/mkleehammer/pyodbc) require connections and cursors to be made in every script, each time requiring the specification of login information, the host/server, etc. They are also ambigious—leaving the choice of using prepared statements or not up to you. **pysqlc** simplifies this and allows you to setup your connection once, and then utilize it whenever needed. It also enables easy use of prepared statements. Thus it faciliates working with multiple databases and makes authentication relatively simple.
+
 Compatible with Python 2.7, 3.5, 3.6
-</p>
 
+**pysqlc** is similar (but simpler) than other libraries such as [dbpy](https://github.com/whiteclover/dbpy), and supports:
+* MySQL;
+* SQL Server
 
-<b>pysqlc</b> is similar (but simpler) than other libraries such as <a href="https://github.com/whiteclover/dbpy">dbpy</a>, and supports:
-<ul>
-   <li>MySQL;</li>
-   <li>SQL Server</li>
-   <li>NOTE: Oracle currently not supported by will be included in a later release.</li>
-   
-</ul>
-<hr>
+NOTE: Oracle currently not supported by will be included in a later release.
 
-<h4>Installation</h4>
-<p>To install, download the repository and install using pip (locally):</p>
+## Installation
+To install, download the repository and install using pip (locally):
 
     >>> pip install .
 
-<p>or alternatively via git from here directly:</p>
+or alternatively via git from here directly:
 
     >>> pip install git+https://github.com/sergegoussev/pysqlc.git
 
-<h4>Quickstart</h4>
-<ol>
-   <li>Setup and connection:
-      <br>
-      <p>After installing the <b>pysqlc</b> package, you have an option of how you would like the library to authenticate. The recommended approach is to set up an environmental variable, however you could also authenticate for each connection.</p>
-    <p>To follow the environmental variable approach (works the same way as <a href="https://cloud.google.com/deployment-manager/docs/configuration/templates/use-environment-variables">google cloud environmental variables</a>, which points to a json on your computer), create a 'SQL_LOGIN' variable and point it to a .json file somewhere on your computer. You must follow the below structure with the name of the environment you are connecting to, and the various connection requirements.</p>
-   
-    {
-    	"main":{
-    		"dbtype":"MySQL",
-    		"host":"localhost",
-    		"charset":"utf8mb4",
-    		"username":"uid",
-    		"password":"psw"
-    	}
-    }
-     
-        
 
-<p>The above approach makes it possible for you to specify several environments, just add as needed. Its recommended to set the default environment you will use as "main"—this way you will not need to specify this environment every time when connecting.</p>
-     
-<br>
-   <ul>
-      <li>NOTE 1: specify either "MySQL" or "SQL Server" under dbtype;</li>
-      <li>NOTE 2: "password" section can be ommited. If it is not included, the <b>pysqlc</b> will ask for the password every time the connection is made (or alternatively look for it to be passed into the DB object upon initiation):</li>
-      <ul>
-         <li>if password ommited from local variable json and <b>not</b> specified in code:</li>
+## Quickstart
 
-```python
-from pysqlc import DB
-db = DB('testdb')
-Enter password to login to the database server: #prompt
-'pass'
-Successfully connected to testdb
-```
-    
-<li>if password ommited from local variable json, but specified in code:</li>
+Make sure you read how to [set up the library](docs/README.md#setup), as you can make use much easier by using the *environment variable* approach 
 
-```python
-from pysqlc import DB
-db = DB('testdb', password='pass')
-Successfully connected to testdb
-```
-
-<li>if password included in json:</li>
-
-```python
-from pysqlc import DB
-db = DB('testdb')
-Successfully connected to testdb
-```
-   </ul>
-   </ul>
-</li>
-
-<li>Extracting data:
-Extraction is super easy once connected to a database:
+Lets say you want to connect to a database and extract some data:
    
 ```python
+from pysqlc import DB
+
+#connect to the database you want
+db = DB('testdb')
+
+#write your SQL query as a string
 q = "SELECT * FROM table;"
+
+#and get the data back using one simple function
 result = db.query(q)
 ```
-</li>
 
-<li>Inserting (or updating) data:
-Also very easy, based on prepared statements:
-
-```python
-query = "INSERT IGNORE INTO table (userid, username) VALUES (%s, %s);"
-values = [123,'john smith']
-db.query(query, values, q_type='INSERT') #q_type='UPDATE' if updating
-```
-
-</li>
-<li>Inserting large list of data: specify 'executemany'=True in the query command and <b>pysqlc</b> will utilize the <i>cursor.executemany()</i> function:
-   
-```python
-query = "INSERT IGNORE INTO table (userid, username) VALUES (%s, %s);"
-values = [(123,'john smith'),(456,'elon musk'),(789,'bill gates')]
-db.query(query, values, q_type='INSERT', executemany=True)
-```
-</li>
-
-NOTE: values should always be passed as a list (even if there is only one value):
-
-```python
-q1 = "REPLACE INTO table (name) VALUES (%s);"
-db.query(query=q1, values=['John Smith'], q_type='REPLACE')
-
-#or multiple data values:
-q2 = """
-    UPDATE table
-    SET number=%s
-    WHERE userid='%s';
-    """
-db.query(query=q2, values=[123, 'john-123'], q_type="UPDATE")
-```
+That's it! To read more about how to set up the library and its methods, see [the documentation](docs/README.md)

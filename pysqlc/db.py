@@ -54,7 +54,9 @@ class DB:
     
     def __get_login_info__(self):
         try:
-            j = open(os.environ['SQL_LOGIN']).read()
+            with open(os.environ['SQL_LOGIN']) as file:
+                j = file.read()
+                file.close()
             parsed = json.loads(j)
             if self.env_name in parsed:
                 self.login = parsed[self.env_name]
@@ -167,9 +169,9 @@ class DB:
                 raise QueryError('improper q_type used, you are not attempting to make changes but using an alter query type')
         elif q_type is 'SELECT':
             if not any(q in sql_query.lower() for q in mod_qs):
-                return c.fetchall()
+                return list(c.fetchall())
             else:
                 raise QueryError('improper q_type, please do not use SELECT when modifying data')
         
 if __name__ == '__main__':
-    db = DB('temp')
+    pass

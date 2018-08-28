@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='pysqlc',
-      version='0.1.2',
+      version='0.1.3',
       description='Simple python abstraction library for SQL databases',
       long_description=open('README.md').read(),
       classifiers=[
