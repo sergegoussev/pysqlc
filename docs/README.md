@@ -26,7 +26,7 @@ To follow the environmental variable approach (works the same way as [google clo
     }
 ```
         
-You can thus specify several environments, just add as needed. Its recommended to set the default environment you will use as "main"—this way you will not need to specify this environment every time when connecting.
+You can thus specify several environments, just add as needed. Its recommended to set the default environment you will use as "main" — this way you will not need to specify this environment every time when connecting.
 * NOTE 1: specify either "MySQL" or "SQL Server" under dbtype;    	
 * NOTE 2: "password" section can be ommited. If it is not included, the **pysqlc** will ask for the password every time the connection is made (or alternatively look for it to be passed into the DB object upon initiation):
     * if password ommited from local variable json and **not** specified in code:
@@ -54,6 +54,16 @@ from pysqlc import DB
 db = DB('testdb')
 Successfully connected to testdb
 ```
+#### Specifying environments
+
+If you want to specify the environment type you want to connect to, you can do so using the `env_name` parameter:
+
+```python
+from pysqlc import DB
+db = DB(db_name='testdb', env_name="dev")
+Successfully connected to testdb
+```
+**NOTE**: `env_name` default is set to `'main'`
 
 ### Manual entry of username and password Approach
 
