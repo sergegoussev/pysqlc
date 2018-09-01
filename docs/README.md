@@ -7,6 +7,7 @@
 **supported**:
 * Python 2.7, 3.x
 * MySQL 5.7, 8.0
+* SQL Server 2012
 
 **Contents**:
 * [Setup](#setup)
