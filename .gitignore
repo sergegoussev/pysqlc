@@ -3,3 +3,4 @@
 .ini
 *.ini
 *.pyc
+tests.py

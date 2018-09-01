@@ -4,6 +4,22 @@
 
 **pysqlc**, works by (1) connecting to a database by name (where it uses the pre-selected connection method), and (2) executes a query on the connected database.
 
+**supported**:
+* Python 2.7, 3.x
+* MySQL 5.7, 8.0
+
+**Contents**:
+* [Setup](#setup)
+    * [Environmental Variable Approach](#environmentalvariableapproach)
+    * [Specifying environments](#specifyingenvironments)
+* [Methods](#methods)
+    * [SELECT](#select)
+    * [INSERT](#insert)
+    * [UPDATE](#update)
+    * [CREATE](#create)
+    * [DELETE](#delete)
+
+
 ## Setup
 
 To make connections, there are 2 options:
