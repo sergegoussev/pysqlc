@@ -15,7 +15,7 @@ class DB:
     '''
     def __init__(self, 
                  db_name="",
-                 env_name="main",
+                 env_name="prod",
                  username=None,
                  password=None,
                  host=None,
