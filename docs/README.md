@@ -81,7 +81,8 @@ db = DB(db_name='testdb', env_name="dev")
 Successfully connected to testdb
 ```
 **NOTE 1**: `env_name` default is set to `'prod'`
-**NOTE 2, troupbleshooting**: the order of arguments when specifying DB object is `db(db_name="", env_name='prod', ...)`, hence make sure to specify the `env_name` variable as the type of variable you are entering. For example if you specify `db('dev')` for dev environment, **pysqlc** will look for the `dev` database on the `prod` (default) environment
+
+**NOTE 2, troubleshooting**: the order of arguments when specifying DB object is `db(db_name="", env_name='prod', ...)`, hence make sure to specify the `env_name` variable as the type of variable you are entering. For example if you specify `db('dev')` for dev environment, **pysqlc** will look for the `dev` database on the `prod` (default) environment
 
 ### Manual entry of username and password Approach
 
