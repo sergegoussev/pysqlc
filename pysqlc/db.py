@@ -50,8 +50,9 @@ class DB:
                     print("No such database exists, check your spelling and try again")
         else:
             self.connect()
+            print("Generatic connection made as no DB was selected")
             if self.dev_mode == True:
-                print("Generic connection made as no DB was selected, the following DBs are availible for use:")
+                print("The following DBs are availible for to connect to:")
                 for each in self.__check_dbs__():
                     print(" - {}".format(each[0]))
 	    
@@ -179,4 +180,4 @@ class DB:
                 raise QueryError('improper q_type, please do not use SELECT when modifying data')
         
 if __name__ == '__main__':
-    pass
+    db = DB('','dev')
