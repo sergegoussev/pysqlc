@@ -19,7 +19,8 @@ class DB:
                  username=None,
                  password=None,
                  host=None,
-                 charset=None):
+                 charset=None,
+                 dev_mode=False):
         '''
         Enter the required information to connect to the SQL server. If environmental
         variable is set, you can skip specifying everything 
@@ -30,6 +31,7 @@ class DB:
         self.username = username
         self.pass_entered = password
         self.db_name = db_name
+        self.dev_mode = dev_mode
         self.__get_login_info__()
         if db_name is not "":
             try:
@@ -47,11 +49,12 @@ class DB:
                 except:
                     print("No such database exists, check your spelling and try again")
         else:
-            print("No DB selected, please select one of the following databases and try again")
-            self.connect()
-            for each in self.__check_dbs__():
-                print(" - {}".format(each[0]))
-    
+        	self.connect()
+        	if self.dev_mode == True:
+            	print("Generic connection made as no DB was selected, the following DBs are availible for use:")          
+	            for each in self.__check_dbs__():
+	                print(" - {}".format(each[0]))
+	    
     def __get_login_info__(self):
         try:
             with open(os.environ['SQL_LOGIN']) as file:
@@ -90,6 +93,7 @@ class DB:
                 
                 	WHERE table_schema NOT IN (
                 		'information_schema',
+                		'performance_schema',
                 		'sys',
                 		'mysql'
                         )
@@ -162,8 +166,9 @@ class DB:
         #return function based on input type
         mod_qs = ('update','insert','replace','delete')
         if q_type == 'INSERT' or q_type == 'REPLACE' or q_type == 'DELETE' or q_type == 'UPDATE':
-            if any(q in sql_query.lower() for q in mod_qs):    
-                print('{} made'.format(q_type.title()))
+            if any(q in sql_query.lower() for q in mod_qs): 
+            	if self.dev_mode == True:   
+                	print('{} made'.format(q_type.title()))
                 self.conn.commit()
             else:
                 raise QueryError('improper q_type used, you are not attempting to make changes but using an alter query type')
