@@ -49,11 +49,11 @@ class DB:
                 except:
                     print("No such database exists, check your spelling and try again")
         else:
-        	self.connect()
-        	if self.dev_mode == True:
-            	print("Generic connection made as no DB was selected, the following DBs are availible for use:")          
-	            for each in self.__check_dbs__():
-	                print(" - {}".format(each[0]))
+            self.connect()
+            if self.dev_mode == True:
+                print("Generic connection made as no DB was selected, the following DBs are availible for use:")
+                for each in self.__check_dbs__():
+                    print(" - {}".format(each[0]))
 	    
     def __get_login_info__(self):
         try:
@@ -166,9 +166,9 @@ class DB:
         #return function based on input type
         mod_qs = ('update','insert','replace','delete')
         if q_type == 'INSERT' or q_type == 'REPLACE' or q_type == 'DELETE' or q_type == 'UPDATE':
-            if any(q in sql_query.lower() for q in mod_qs): 
-            	if self.dev_mode == True:   
-                	print('{} made'.format(q_type.title()))
+            if any(q in sql_query.lower() for q in mod_qs):
+                if self.dev_mode == True:
+                    print('{} made'.format(q_type.title()))
                 self.conn.commit()
             else:
                 raise QueryError('improper q_type used, you are not attempting to make changes but using an alter query type')
