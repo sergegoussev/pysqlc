@@ -165,8 +165,8 @@ class DB:
                 c.execute(sql_query, values)
 
         #return function based on input type
-        mod_qs = ('update','insert','replace','delete')
-        if q_type == 'INSERT' or q_type == 'REPLACE' or q_type == 'DELETE' or q_type == 'UPDATE':
+        mod_qs = ('update','insert','replace','delete', 'create')
+        if q_type == 'INSERT' or q_type == 'REPLACE' or q_type == 'DELETE' or q_type == 'UPDATE' or q_type == 'CREATE':
             if any(q in sql_query.lower() for q in mod_qs):
                 if self.dev_mode == True:
                     print('{} made'.format(q_type.title()))
