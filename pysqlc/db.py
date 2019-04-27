@@ -4,16 +4,22 @@ pysql.db
 """
 from __future__ import print_function
 from pysqlc.error import ConnectError, QueryError
-import os, json, MySQLdb, pypyodbc, getpass
-	
+import os
+import json
+import MySQLdb
+import pypyodbc
+import getpass
+
+
 class DB:
     '''
     The DB oject creates a connection to the SQL server database, verifies db 
     connection based on db name specified, and executes prepared statemetns. 
-    
+
     Acts as a single interface for I/O to the DB server
     '''
-    def __init__(self, 
+
+    def __init__(self,
                  db_name="",
                  env_name="prod",
                  username=None,
@@ -55,7 +61,7 @@ class DB:
                 print("The following DBs are availible for to connect to:")
                 for each in self.__check_dbs__():
                     print(" - {}".format(each[0]))
-	    
+
     def __get_login_info__(self):
         try:
             with open(os.environ['SQL_LOGIN']) as file:
@@ -65,27 +71,30 @@ class DB:
             if self.env_name in parsed:
                 self.login = parsed[self.env_name]
             else:
-                raise ConnectError("Improper environment selected, please try again")
+                raise ConnectError(
+                    "Improper environment selected, please try again")
             self.dbtype = self.login['dbtype']
-            
+
         except:
-            if (self.host is not None \
-                and self.charset is not None \
-                and self.username is not None):
+            if (self.host is not None
+                and self.charset is not None
+                    and self.username is not None):
                 self.login = {
-                        "host":self.host,
-                        "charset":self.charset,
-                        "username":self.username
-                        }
+                    "host": self.host,
+                    "charset": self.charset,
+                    "username": self.username
+                }
             else:
-                raise ConnectError("No environmental variable detected and server connection information not specified during initialization of the DB object. Please try again")
+                raise ConnectError(
+                    "No environmental variable detected and server connection information not specified during initialization of the DB object. Please try again")
         if 'password' in self.login:
             self.password = self.login['password']
         elif self.pass_entered is not None:
             self.password = self.pass_entered
         else:
-            self.password = getpass.getpass("Enter password to login to the database server: ")
-            
+            self.password = getpass.getpass(
+                "Enter password to login to the database server: ")
+
     def __check_dbs__(self):
         q = """
                 SELECT 
@@ -129,7 +138,7 @@ class DB:
     def query(self, sql_query, values=None, q_type="SELECT", executemany=False):
         '''
         This is the function that passes in the query, with 3 options:
-            
+
         If a SELECT query, a result is returned (no extra input necessary)
         If an INSERT query (nothing returned):
             - need q_type = 'INSERT'
@@ -147,15 +156,15 @@ class DB:
         The error handling is done so as to re-create the cursor in case it 
         expires through lack of use.
         '''
-        #cursor error handler:
+        # cursor error handler:
         try:
             c = self.conn.cursor()
             if executemany is True:
                 c.executemany(sql_query, values)
             else:
                 c.execute(sql_query, values)
-    
-        #re-establish the cursor if expired
+
+        # re-establish the cursor if expired
         except (AttributeError, MySQLdb.OperationalError):
             self.connect()
             c = self.conn.cursor()
@@ -164,20 +173,23 @@ class DB:
             else:
                 c.execute(sql_query, values)
 
-        #return function based on input type
-        mod_qs = ('update','insert','replace','delete', 'create')
+        # return function based on input type
+        mod_qs = ('update', 'insert', 'replace', 'delete', 'create')
         if q_type == 'INSERT' or q_type == 'REPLACE' or q_type == 'DELETE' or q_type == 'UPDATE' or q_type == 'CREATE':
             if any(q in sql_query.lower() for q in mod_qs):
                 if self.dev_mode == True:
                     print('{} made'.format(q_type.title()))
                 self.conn.commit()
             else:
-                raise QueryError('improper q_type used, you are not attempting to make changes but using an alter query type')
+                raise QueryError(
+                    'improper q_type used, you are not attempting to make changes but using an alter query type')
         elif q_type is 'SELECT':
             if not any(q in sql_query.lower() for q in mod_qs):
                 return list(c.fetchall())
             else:
-                raise QueryError('improper q_type, please do not use SELECT when modifying data')
-        
+                raise QueryError(
+                    'improper q_type, please do not use SELECT when modifying data')
+
+
 if __name__ == '__main__':
-    db = DB('','dev')
+    db = DB('', 'dev')
