@@ -1,0 +1,84 @@
+# pysqlc Methods
+
+Once connected to a database, only one method type is used for all `CRUD` operations, however many parameters are availible to specify what you want **pysqlc** to do.
+
+**Parameters of `db.query(db_name, env_name, username, password, host, charset, dev_mode)`**
+* `db_name`
+* `env_name`
+
+
+there is  has one main method to call and put all SQL queries into: `db.query(q=query)`. All CRUD methods are supported, they simply require different parameter inputs:
+
+## SELECT
+
+This is the default, hence you do no need to specify anything o
+
+**Input**:
+* SQL query to select
+
+**Returns**:
+List of tuples
+
+**Example**:
+
+```python
+q = "SELECT * FROM table;"
+result = db.query(q)
+```
+
+## INSERT 
+
+**Input**:
+* SQL query to insert 
+* data to insert as a list of tuples
+
+**Returns**:
+* Nothing
+
+**Example**:
+
+```python
+query = "INSERT IGNORE INTO table (userid, username) VALUES (%s, %s);"
+values = [123,'john smith']
+db.query(query, values, q_type='INSERT') #q_type='UPDATE' if updating
+```
+
+**NOTE**: if you have lots of data to add add, you can specify `'executemany'=True` in the query command and **pysqlc** will utilize the `cursor.executemany()` function:
+   
+```python
+query = "INSERT IGNORE INTO table (userid, username) VALUES (%s, %s);"
+values = [(123,'john smith'),(456,'elon musk'),(789,'bill gates')]
+db.query(query, values, q_type='INSERT', executemany=True)
+```
+
+## UPDATE 
+   
+Updating values is much like Inserting data -- you should specify the query and the data, but expect nothing back
+
+**Input**:
+* SQL query to update 
+* data to update as a list of tuples
+
+**Returns**:
+* Nothing
+
+## CREATE
+   
+Creating a new table (or database, index, etc) does not require anything but the query 
+
+**Input**:
+* SQL query to create 
+
+**Returns**:
+* Nothing
+
+## DELETE
+
+Deleting is similar to Creating, only the query is required
+
+**Input**:
+* SQL query to delete
+
+**Returns**:
+* Nothing
+

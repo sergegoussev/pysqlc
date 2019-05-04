@@ -14,13 +14,13 @@ import getpass
 class DB:
     '''
     The DB oject creates a connection to the SQL server database, verifies db 
-    connection based on db name specified, and executes prepared statemetns. 
+    connection based on db name specified, and executes prepared statements. 
 
     Acts as a single interface for I/O to the DB server
     '''
 
     def __init__(self,
-                 db_name="",
+                 db_name,
                  env_name="prod",
                  username=None,
                  password=None,
@@ -137,7 +137,8 @@ class DB:
 
     def query(self, sql_query, values=None, q_type="SELECT", executemany=False):
         '''
-        This is the function that passes in the query, with 3 options:
+        The main operating method for all CRUD operations. Expects a SQL query 
+        as a string, and allows customizations with 3 parameters.
 
         If a SELECT query, a result is returned (no extra input necessary)
         If an INSERT query (nothing returned):
@@ -152,9 +153,6 @@ class DB:
             - values = None (or skip)
         If UPDATE query (as above)
         If executemany == True -- uses the 'executemany' cursor function
-
-        The error handling is done so as to re-create the cursor in case it 
-        expires through lack of use.
         '''
         # cursor error handler:
         try:
