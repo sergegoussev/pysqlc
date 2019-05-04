@@ -98,12 +98,12 @@ html_static_path = ['_static']
 html_context = {
     'author': "Serge Goussev",
     'date': datetime.date.today().strftime('%d/%m/%y'),
-    'source_url_prefix': "https://github.com/sergegoussev/pysql",
+    'source_url_prefix': "https://github.com/sergegoussev/pysql/",
     "display_github": True,
     "github_host": "github.com",
     "github_user": "sergegoussev",
     "github_repo": 'pysql',
-    "github_version": "master/",
+    "github_version": "master/docs/source/",
 }
 
 
