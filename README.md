@@ -1,4 +1,4 @@
-[Documentation](https://sergegoussev.github.io/pysqlc/)
+[Documentation](https://sergegoussev.github.io/pysqlc/docs/build/html/index.html)
 
 # pysqlc
 
@@ -39,4 +39,4 @@ q = "SELECT * FROM table;"
 result = db.query(q)
 ```
 
-That's it! To read more about how to set up the library and its methods, see [the documentation]( https://sergegoussev.github.io/pysqlc/)
+That's it! To read more about how to set up the library and its methods, see [the documentation]( https://sergegoussev.github.io/pysqlc/docs/build/html/index.html)
