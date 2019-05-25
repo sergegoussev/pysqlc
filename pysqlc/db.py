@@ -3,138 +3,16 @@
 pysql.db
 """
 from __future__ import print_function
-from pysqlc.error import ConnectError, QueryError
-import os
-import json
-import MySQLdb
-import pypyodbc
-import getpass
+from pysqlc.error import QueryError
+from pysqlc.connect import DBconnect
 
-
-class DB:
+class DB(DBconnect):
     '''
     The DB oject creates a connection to the SQL server database, verifies db 
     connection based on db name specified, and executes prepared statements. 
 
     Acts as a single interface for I/O to the DB server
     '''
-
-    def __init__(self,
-                 db_name,
-                 env_name="prod",
-                 username=None,
-                 password=None,
-                 host=None,
-                 charset=None,
-                 dev_mode=False):
-        '''
-        Enter the required information to connect to the SQL server. If environmental
-        variable is set, you can skip specifying everything 
-        '''
-        self.host = host
-        self.charset = charset
-        self.env_name = env_name
-        self.username = username
-        self.pass_entered = password
-        self.db_name = db_name
-        self.dev_mode = dev_mode
-        self.__get_login_info__()
-        if db_name is not "":
-            try:
-                self.connect()
-                print("Successfully connected to {} database".format(self.db_name))
-            except:
-                self.db_name = ""
-                self.connect()
-                try:
-                    avail_dbs = self.__check_dbs__()
-                    print('No such database exists, the following are availible:')
-                    for each in avail_dbs:
-                        print(" - {}".format(each[0]))
-                    print("Please retry with one of the above")
-                except:
-                    print("No such database exists, check your spelling and try again")
-        else:
-            self.connect()
-            print("Generatic connection made as no DB was selected")
-            if self.dev_mode == True:
-                print("The following DBs are availible for to connect to:")
-                for each in self.__check_dbs__():
-                    print(" - {}".format(each[0]))
-
-    def __get_login_info__(self):
-        try:
-            with open(os.environ['SQL_LOGIN']) as file:
-                j = file.read()
-                file.close()
-            parsed = json.loads(j)
-            if self.env_name in parsed:
-                self.login = parsed[self.env_name]
-            else:
-                raise ConnectError(
-                    "Improper environment selected, please try again")
-            self.dbtype = self.login['dbtype']
-
-        except:
-            if (self.host is not None
-                and self.charset is not None
-                    and self.username is not None):
-                self.login = {
-                    "host": self.host,
-                    "charset": self.charset,
-                    "username": self.username
-                }
-            else:
-                raise ConnectError(
-                    "No environmental variable detected and server connection information not specified during initialization of the DB object. Please try again")
-        if 'password' in self.login:
-            self.password = self.login['password']
-        elif self.pass_entered is not None:
-            self.password = self.pass_entered
-        else:
-            self.password = getpass.getpass(
-                "Enter password to login to the database server: ")
-
-    def __check_dbs__(self):
-        q = """
-                SELECT 
-                	table_schema as `database`
-                FROM information_schema.tables 
-                
-                	WHERE table_schema NOT IN (
-                		'information_schema',
-                		'performance_schema',
-                		'sys',
-                		'mysql'
-                        )
-                
-                	GROUP BY `database`
-                	ORDER BY `database` ASC;
-                """
-        return self.query(q)
-
-    def connect(self):
-        if self.dbtype == 'MySQL':
-            try:
-                self.conn = MySQLdb.connect(host=self.login['host'],
-                                            user=self.login['username'],
-                                            password=self.password,
-                                            db=self.db_name,
-                                            charset=self.login['charset'])
-            except Exception:
-                raise ConnectError("Cannot connect, check login information")
-        elif self.dbtype == 'SQL Server':
-            try:
-                self.conn = pypyodbc.connect(driver='{SQL Server}',
-                                             server=self.login['host'],
-                                             database=self.db_name,
-                                             uid=self.login['username'],
-                                             pwd=self.password)
-            except Exception:
-                raise ConnectError("Cannot connect, check login information")
-        else:
-            raise ConnectError("Improper database type selected")
-
     def query(self, sql_query, values=None, q_type="SELECT", executemany=False):
         '''
         The main operating method for all CRUD operations. Expects a SQL query 
@@ -175,7 +53,7 @@ class DB:
         mod_qs = ('update', 'insert', 'replace', 'delete', 'create')
         if q_type == 'INSERT' or q_type == 'REPLACE' or q_type == 'DELETE' or q_type == 'UPDATE' or q_type == 'CREATE':
             if any(q in sql_query.lower() for q in mod_qs):
-                if self.dev_mode == True:
+                if self._debug_mode == True:
                     print('{} made'.format(q_type.title()))
                 self.conn.commit()
             else:
@@ -190,4 +68,4 @@ class DB:
 
 
 if __name__ == '__main__':
-    db = DB('', 'dev')
+    db = DB('dev')

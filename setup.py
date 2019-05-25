@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='pysqlc',
-      version='0.1.5',
+      version='0.2.0',
       description='Simple python abstraction library for SQL databases',
       long_description=open('README.md').read(),
       classifiers=[
@@ -18,7 +18,7 @@ setup(name='pysqlc',
       license='MIT',
       packages=['pysqlc'],
       install_requires=[
-              'mysqlclient',
+              'mysql-connector',
               'pypyodbc',
               'future'],
       zip_safe=False)
