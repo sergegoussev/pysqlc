@@ -6,14 +6,15 @@ This page contains an overview of **nlpru** and all availible methods
 Initiation
 ----------
 
-.. class:: DB([env_name="dev"], [db_name=None], [username=None], [password=None], [host=None], [charset=None], [_debug_mode=False])
+.. class:: DB([env_name="dev"], [_debug_mode=False], [database], [dbtype], [username], [password], [host], [charset])
 
     The DB oject creates a connection to the SQL server database, verifies db connection based on db name specified, and executes prepared statements. 
 
     Acts as a single interface for I/O to the DB server
 
    :param env_name: environment you wish to connect to, only applicable if you are using the *environmental variable* approach
-   :param db_name: name of the database you want to connect to
+   :pram dbtype: specify the RDMS server type you use: "MySQL" allowed
+   :param database: name of the database you want to connect to
    :param username: manually input username if not utilizing *environmental variable* approach
    :param password: manually input the passwords if not utilizing *environmental variable* approach
    :param host: specify the server host if not utilizing *environmental variable* approach, for example `"localhost"`

@@ -2,9 +2,10 @@
 """
 pysql.__init__
 """
-__version__ = '0.2.0'
+__version__ = '0.2.0-dev'
 __author__ = '@SergeGoussev'
 __licence__ = 'MIT'
 
 from pysqlc.db import DB
-from pysqlc.error import pysqlcError, ConnectError, QueryError
+from pysqlc.connect import DBconnect
+from pysqlc.error import *
