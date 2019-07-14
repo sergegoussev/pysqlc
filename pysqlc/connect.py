@@ -128,7 +128,7 @@ class DBconnect:
                 password=self.login['password'],
                 port=self.login['port'],
                 charset=self.login['charset'],
-                database=None,
+                database=self.login['databaseac'],
                 auth_plugin='mysql_native_password'
             )
             if self._debug_mode == True:
