@@ -30,7 +30,7 @@ When initiating the connection, you can either enter your login info manually, o
 from pysqlc import DB
 
 #connect to the database you want
-db = DB(db_name='testdb', env_name="prod", username="yourname", )
+db = DB(env_name="prod", database="database_name", )
 
 #write your SQL query as a string
 q = "SELECT * FROM table;"
