@@ -5,6 +5,7 @@ pysql.db
 from __future__ import print_function
 from pysqlc.error import QueryError
 from pysqlc.connect import DBconnect
+from mysql.connector.errors import Error
 
 class DB(DBconnect):
     '''
@@ -41,7 +42,9 @@ class DB(DBconnect):
                 c.execute(sql_query, values)
 
         # re-establish the cursor if expired
-        except (AttributeError, MySQLdb.OperationalError):
+        #https://dev.mysql.com/doc/connector-python/en/connector-python-api-errors-error.html
+        except (Error):
+            #(errno=2006) meant to be "MySQL server has gone away"
             self.connect()
             c = self.conn.cursor()
             if executemany is True:
@@ -50,7 +53,7 @@ class DB(DBconnect):
                 c.execute(sql_query, values)
 
         # return function based on input type
-        mod_qs = ('update', 'insert', 'replace', 'delete', 'create')
+        mod_qs = ('update ', 'insert ', 'replace ', 'delete ', 'create ')
         if q_type == 'INSERT' or q_type == 'REPLACE' or q_type == 'DELETE' or q_type == 'UPDATE' or q_type == 'CREATE':
             if any(q in sql_query.lower() for q in mod_qs):
                 if self._debug_mode == True:
