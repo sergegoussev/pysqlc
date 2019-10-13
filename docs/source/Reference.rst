@@ -88,3 +88,9 @@ Examples
     DELETE query (again, nothing returned)
         - need q_type = 'DELETE'
         - values = None (or skip)
+
+        .. code-block:: python
+
+            query = "DELETE FROM table WHERE id = %s;"
+            values = [123]
+            db.query(query, values, q_type="DELETE")

@@ -264,6 +264,11 @@
 <li><p>need q_type = ‘DELETE’</p></li>
 <li><p>values = None (or skip)</p></li>
 </ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;DELETE FROM table WHERE id = </span><span class="si">%s</span><span class="s2">;&quot;</span>
+<span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">123</span><span class="p">]</span>
+<span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">q_type</span><span class="o">=</span><span class="s2">&quot;DELETE&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 </div></blockquote>
