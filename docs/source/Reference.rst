@@ -91,9 +91,9 @@ Examples
             CREATE TABLE IF NOT EXISTS users (
                 userid INT AUTO_INCREMENT PRIMARY KEY,
                 username VARCHAR(15)
-            )
-            db.query(query, q_type="CREATE")
+            );
             """
+            db.query(query, q_type="CREATE")
 
     DELETE query (again, nothing returned)
         - need q_type = 'DELETE'
