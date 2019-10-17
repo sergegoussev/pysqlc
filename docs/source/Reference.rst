@@ -73,17 +73,27 @@ Examples
 
         .. code-block:: python
         
-            query = "INSERT IGNORE INTO table (userid, username) VALUES (%s, %s);"
-            values = [123,'john smith']
+            query = "UPDATE table SET username = %s WHERE userid = %s;"
+            values = ['john smith', 123]
             db.query(query, values, q_type='UPDATE')
 
     REPLACE query (nothing returned)
-        - `q_type = 'INSERT'`
+        - `q_type = 'REPLACE'`
         - `values` - the values that will be committed
 
     CREATE query (nothing returned)
         - need q_type = 'CREATE'
         - values = None (or skip)
+
+        .. code-block:: python
+
+            query = """
+            CREATE TABLE IF NOT EXISTS users (
+                userid INT AUTO_INCREMENT PRIMARY KEY,
+                username VARCHAR(15)
+            )
+            db.query(query, q_type="CREATE")
+            """
 
     DELETE query (again, nothing returned)
         - need q_type = 'DELETE'

@@ -244,14 +244,14 @@
 <li><p>need q_type = ‘DELETE’</p></li>
 <li><p>values = None (or skip)</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;INSERT IGNORE INTO table (userid, username) VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">);&quot;</span>
-<span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">123</span><span class="p">,</span><span class="s1">&#39;john smith&#39;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;UPDATE table SET username = </span><span class="si">%s</span><span class="s2"> WHERE userid = </span><span class="si">%s</span><span class="s2">;&quot;</span>
+<span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;john smith&#39;</span><span class="p">,</span> <span class="mi">123</span><span class="p">]</span>
 <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">q_type</span><span class="o">=</span><span class="s1">&#39;UPDATE&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
 <dt>REPLACE query (nothing returned)</dt><dd><ul class="simple">
-<li><p><cite>q_type = ‘INSERT’</cite></p></li>
+<li><p><cite>q_type = ‘REPLACE’</cite></p></li>
 <li><p><cite>values</cite> - the values that will be committed</p></li>
 </ul>
 </dd>
@@ -259,6 +259,15 @@
 <li><p>need q_type = ‘CREATE’</p></li>
 <li><p>values = None (or skip)</p></li>
 </ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">CREATE TABLE IF NOT EXISTS users (</span>
+<span class="s2">    userid INT AUTO_INCREMENT PRIMARY KEY,</span>
+<span class="s2">    username VARCHAR(15)</span>
+<span class="s2">)</span>
+<span class="s2">db.query(query, q_type=&quot;CREATE&quot;)</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
 </dd>
 <dt>DELETE query (again, nothing returned)</dt><dd><ul class="simple">
 <li><p>need q_type = ‘DELETE’</p></li>
