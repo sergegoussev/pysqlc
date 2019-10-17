@@ -19,6 +19,18 @@ class ConnectError(pysqlcError):
     """
     pass
 
+class DataInputError(pysqlcError):
+    """
+    When user input specified is inappropriate
+    """
+    pass
+
+class EnvVariableError(pysqlcError):
+    """
+    Error getting environmental error
+    """
+    pass
+
 
 class QueryError(pysqlcError):
     """

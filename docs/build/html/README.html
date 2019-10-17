@@ -94,7 +94,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Reference.html"><code class="docutils literal notranslate"><span class="pre">pysqlc.DB</span></code> — reference and examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Reference.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pysqlc.DB</span></code> — reference and examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="licence.html">Licence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="licence.html#contact">Contact</a></li>
 </ul>
@@ -168,9 +168,9 @@
 <p><strong>pysqlc</strong>, works by (1) connecting to a database of your choice, and (2) executing a <code class="docutils literal notranslate"><span class="pre">SQL</span></code> query on it. Authentication, utilization of cursors (and other SQL things) are done for you.</p>
 <p><strong>supported</strong>:</p>
 <ul class="simple">
-<li>Python 2.7, 3.x</li>
-<li>MySQL 5.7, 8.0</li>
-<li>SQL Server 2012, 2016</li>
+<li><p>Python 2.7, 3.x</p></li>
+<li><p>MySQL 5.7, 8.0</p></li>
+<li><p>SQL Server 2012, 2016</p></li>
 </ul>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
@@ -190,7 +190,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pysqlc</span> <span class="kn">import</span> <span class="n">DB</span>
 
 <span class="c1">#connect to the database you want</span>
-<span class="n">db</span> <span class="o">=</span> <span class="n">DB</span><span class="p">(</span><span class="n">db_name</span><span class="o">=</span><span class="s1">&#39;testdb&#39;</span><span class="p">,</span> <span class="n">env_name</span><span class="o">=</span><span class="s2">&quot;prod&quot;</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="s2">&quot;yourname&quot;</span><span class="p">,</span> <span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">DB</span><span class="p">(</span><span class="n">env_name</span><span class="o">=</span><span class="s2">&quot;prod&quot;</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s2">&quot;database_name&quot;</span><span class="p">,</span> <span class="p">)</span>
 
 <span class="c1">#write your SQL query as a string</span>
 <span class="n">q</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM table;&quot;</span>
@@ -204,8 +204,8 @@
 <h2>Ways to authenticate<a class="headerlink" href="#ways-to-authenticate" title="Permalink to this headline">¶</a></h2>
 <p>To make connections, there are 2 options:</p>
 <ol class="simple">
-<li>You can set up an <em>environmental variable</em> to not have to pass any login information every time you use the library (<em>recommended</em>); or</li>
-<li>Choose to specify username/password manually.</li>
+<li><p>You can set up an <em>environmental variable</em> to not have to pass any login information every time you use the library (<em>recommended</em>); or</p></li>
+<li><p>Choose to specify username/password manually.</p></li>
 </ol>
 <p>To follow the environmental variable approach (works the same way as <a class="reference external" href="https://cloud.google.com/deployment-manager/docs/configuration/templates/use-environment-variables">google cloud environmental variables</a>, which points to a json on your computer), create a ‘SQL_LOGIN’ variable on your PC and point it to a .json file somewhere on your computer. The JSON file must follow the below structure with the name of the environment you are connecting to, and the various connection requirements:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="p">{</span>
@@ -221,13 +221,12 @@
 </div>
 <p>You can specify several environments, just add others as needed. Its recommended to set the default environment you will use as “prod” — this way you will not need to specify this environment every time when connecting.</p>
 <ul>
-<li><p class="first">specify either “MySQL” or “SQL Server” under dbtype;</p>
-</li>
-<li><p class="first">“password” section can be ommited. If it is not included, the <strong>pysqlc</strong> will ask for the password every time the connection is made (or alternatively look for it to be passed into the DB object upon initiation):</p>
+<li><p>specify either “MySQL” or “SQL Server” under dbtype;</p></li>
+<li><p>“password” section can be ommited. If it is not included, the <strong>pysqlc</strong> will ask for the password every time the connection is made (or alternatively look for it to be passed into the DB object upon initiation):</p>
 <p><strong>Examples</strong>:</p>
 <p>If password ommited from local variable json and <strong>not</strong> specified in code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pysqlc</span> <span class="kn">import</span> <span class="n">DB</span>
-<span class="n">db</span> <span class="o">=</span> <span class="n">DB</span><span class="p">(</span><span class="s1">&#39;testdb&#39;</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">DB</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="s1">&#39;testdb&#39;</span><span class="p">)</span>
 <span class="n">Enter</span> <span class="n">password</span> <span class="n">to</span> <span class="n">login</span> <span class="n">to</span> <span class="n">the</span> <span class="n">database</span> <span class="n">server</span><span class="p">:</span> <span class="c1">#prompt</span>
 <span class="s1">&#39;****&#39;</span>
 <span class="n">Successfully</span> <span class="n">connected</span> <span class="n">to</span> <span class="n">testdb</span>
@@ -235,13 +234,13 @@
 </div>
 <p>If password ommited from local variable json, but specified in code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pysqlc</span> <span class="kn">import</span> <span class="n">DB</span>
-<span class="n">db</span> <span class="o">=</span> <span class="n">DB</span><span class="p">(</span><span class="s1">&#39;testdb&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;pass&#39;</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">DB</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="s1">&#39;testdb&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;pass&#39;</span><span class="p">)</span>
 <span class="n">Successfully</span> <span class="n">connected</span> <span class="n">to</span> <span class="n">testdb</span>
 </pre></div>
 </div>
 <p>If password included in json:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pysqlc</span> <span class="kn">import</span> <span class="n">DB</span>
-<span class="n">db</span> <span class="o">=</span> <span class="n">DB</span><span class="p">(</span><span class="s1">&#39;testdb&#39;</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">DB</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="s1">&#39;testdb&#39;</span><span class="p">)</span>
 <span class="n">Successfully</span> <span class="n">connected</span> <span class="n">to</span> <span class="n">testdb</span>
 </pre></div>
 </div>
@@ -254,19 +253,19 @@
 <h3>Specifying environments<a class="headerlink" href="#specifying-environments" title="Permalink to this headline">¶</a></h3>
 <p>If you have setup your <code class="docutils literal notranslate"><span class="pre">JSON</span></code> file to point towards multiple environments, you can specify the environment of interest upon initating the <code class="docutils literal notranslate"><span class="pre">DB()</span></code> object by utilizing the <code class="docutils literal notranslate"><span class="pre">env_name</span></code> parameter:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pysqlc</span> <span class="kn">import</span> <span class="n">DB</span>
-<span class="n">db</span> <span class="o">=</span> <span class="n">DB</span><span class="p">(</span><span class="n">db_name</span><span class="o">=</span><span class="s1">&#39;testdb&#39;</span><span class="p">,</span> <span class="n">env_name</span><span class="o">=</span><span class="s2">&quot;dev&quot;</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">DB</span><span class="p">(</span><span class="n">env_name</span><span class="o">=</span><span class="s2">&quot;dev&quot;</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s1">&#39;testdb&#39;</span><span class="p">)</span>
 <span class="n">Successfully</span> <span class="n">connected</span> <span class="n">to</span> <span class="n">testdb</span>
 </pre></div>
 </div>
 <p>By default, <code class="docutils literal notranslate"><span class="pre">env_name</span></code> is set to <code class="docutils literal notranslate"><span class="pre">'prod'</span></code></p>
 <p><strong>Troubleshooting</strong></p>
-<p>The order of arguments when specifying DB object is <code class="docutils literal notranslate"><span class="pre">db(db_name=&quot;&quot;,</span> <span class="pre">env_name='prod',</span> <span class="pre">...)</span></code>, hence make sure to specify the <code class="docutils literal notranslate"><span class="pre">env_name</span></code> variable as the type of variable you are entering. For example if you specify <code class="docutils literal notranslate"><span class="pre">db('dev')</span></code> for dev environment, <strong>pysqlc</strong> will look for the <code class="docutils literal notranslate"><span class="pre">dev</span></code> database on the <code class="docutils literal notranslate"><span class="pre">prod</span></code> (default) environment</p>
+<p>The order of arguments when specifying DB object is <code class="docutils literal notranslate"><span class="pre">db(database=&quot;&quot;,</span> <span class="pre">env_name='prod',</span> <span class="pre">...)</span></code>, hence make sure to specify the <code class="docutils literal notranslate"><span class="pre">env_name</span></code> variable as the type of variable you are entering. For example if you specify <code class="docutils literal notranslate"><span class="pre">db('dev')</span></code> for dev environment, <strong>pysqlc</strong> will look for the <code class="docutils literal notranslate"><span class="pre">dev</span></code> database on the <code class="docutils literal notranslate"><span class="pre">prod</span></code> (default) environment</p>
 </div>
 <div class="section" id="dev-mode">
 <h3>Dev mode<a class="headerlink" href="#dev-mode" title="Permalink to this headline">¶</a></h3>
 <p><strong>pysqlc</strong> has the ability to print the result of every query statement to give you more visibility of what is going on. If you want to enable it, you can turn it on during initiation:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pysqlc</span> <span class="kn">import</span> <span class="n">DB</span>
-<span class="n">db</span> <span class="o">=</span> <span class="n">DB</span><span class="p">(</span><span class="n">db_name</span><span class="o">=</span><span class="s1">&#39;testdb&#39;</span><span class="p">,</span> <span class="n">env_name</span><span class="o">=</span><span class="s2">&quot;dev&quot;</span><span class="p">,</span> <span class="n">dev_mode</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">DB</span><span class="p">(</span><span class="n">env_name</span><span class="o">=</span><span class="s2">&quot;dev&quot;</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s1">&#39;testdb&#39;</span><span class="p">,</span> <span class="n">dev_mode</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>By default, <code class="docutils literal notranslate"><span class="pre">dev_mode=False</span></code>. The library will still print out major notifications (errors, DB connections, etc).</p>

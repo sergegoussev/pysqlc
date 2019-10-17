@@ -27,7 +27,7 @@ When initiating the connection, you can either enter your login info manually, o
 from pysqlc import DB
 
 #connect to the database you want
-db = DB(db_name='testdb', env_name="prod", username="yourname", )
+db = DB(env_name="prod", database="database_name", )
 
 #write your SQL query as a string
 q = "SELECT * FROM table;"
@@ -66,7 +66,7 @@ You can specify several environments, just add others as needed. Its recommended
 
     ```python
     from pysqlc import DB
-    db = DB('testdb')
+    db = DB(database='testdb')
     Enter password to login to the database server: #prompt
     '****'
     Successfully connected to testdb
@@ -76,7 +76,7 @@ You can specify several environments, just add others as needed. Its recommended
 
     ```python
     from pysqlc import DB
-    db = DB('testdb', password='pass')
+    db = DB(database='testdb', password='pass')
     Successfully connected to testdb
     ```
 
@@ -84,7 +84,7 @@ You can specify several environments, just add others as needed. Its recommended
 
     ```python
     from pysqlc import DB
-    db = DB('testdb')
+    db = DB(database='testdb')
     Successfully connected to testdb
     ```
 
@@ -96,7 +96,7 @@ If you have setup your `JSON` file to point towards multiple environments, you c
 
 ```python
 from pysqlc import DB
-db = DB(db_name='testdb', env_name="dev")
+db = DB(env_name="dev", database='testdb')
 Successfully connected to testdb
 ```
 
@@ -104,7 +104,7 @@ By default, `env_name` is set to `'prod'`
 
 **Troubleshooting**
 
-The order of arguments when specifying DB object is `db(db_name="", env_name='prod', ...)`, hence make sure to specify the `env_name` variable as the type of variable you are entering. For example if you specify `db('dev')` for dev environment, **pysqlc** will look for the `dev` database on the `prod` (default) environment
+The order of arguments when specifying DB object is `db(database="", env_name='prod', ...)`, hence make sure to specify the `env_name` variable as the type of variable you are entering. For example if you specify `db('dev')` for dev environment, **pysqlc** will look for the `dev` database on the `prod` (default) environment
 
 ### Dev mode
 
@@ -112,7 +112,7 @@ The order of arguments when specifying DB object is `db(db_name="", env_name='pr
 
 ```python
 from pysqlc import DB
-db = DB(db_name='testdb', env_name="dev", dev_mode=True)
+db = DB(env_name="dev", database='testdb', dev_mode=True)
 ```
 
 By default, `dev_mode=False`. The library will still print out major notifications (errors, DB connections, etc).
